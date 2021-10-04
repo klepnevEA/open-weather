@@ -1,0 +1,11 @@
+.list-city {
+  overflow-y: auto;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.list-city li {
+  margin-bottom: var(--gap);
+}
