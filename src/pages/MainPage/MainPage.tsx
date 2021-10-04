@@ -1,9 +1,10 @@
 import React from "react";
 import CardCity from "../../components/CardCity";
+import { TCity } from "../../types/city";
 import styles from "./index.module.css";
 
 type TProps = {
-  list: any[];
+  list: TCity[];
 };
 
 export const MainPage = ({ list }: TProps) => {
@@ -11,7 +12,7 @@ export const MainPage = ({ list }: TProps) => {
     <>
       {list.length ? (
         <ul className={styles["list-city"]}>
-          {list.map((elem: any, index: number) => {
+          {list.map((elem: TCity, index: number) => {
             return (
               <li key={index}>
                 <CardCity city={elem} />

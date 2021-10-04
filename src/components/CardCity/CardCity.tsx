@@ -1,9 +1,10 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React from "react";
 import { Link } from "react-router-dom";
+import { TCity } from "../../types/city";
 
 type TProps = {
-  city: any;
+  city: TCity;
 };
 
 export const CardCity = ({ city }: TProps) => {

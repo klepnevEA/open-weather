@@ -4,12 +4,13 @@ import DetailedPage from "../../pages/DetailedPage";
 import MainPage from "../../pages/MainPage";
 import Page404 from "../../pages/Page404";
 import "../../theme/variables.css";
+import { TCity } from "../../types/city";
 import InputSearch from "../InputSearch";
 import styles from "./index.module.css";
 
 function App() {
   const key = "ea6da953729f4d3bf6658f2f0b28e742";
-  const [listCityes, setListCityes] = useState<any[]>([]);
+  const [listCityes, setListCityes] = useState<TCity[]>([]);
   function getInfoWeather(name: string) {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${key}`
@@ -23,7 +24,7 @@ function App() {
         if (data.cod === "404") {
           setListCityes([...listCityes]);
         } else if (
-          [...listCityes].filter((item: any) => item.name === data.name)
+          [...listCityes].filter((item: TCity) => item.name === data.name)
             .length === 0
         ) {
           setListCityes([data, ...listCityes]);
@@ -49,8 +50,9 @@ function App() {
         if (data.cod === "404") {
           setListCityes([...listCityes]);
         } else if (
-          [...listCityes].filter((item: any) => item.name === data.list[0].name)
-            .length === 0
+          [...listCityes].filter(
+            (item: TCity) => item.name === data.list[0].name
+          ).length === 0
         ) {
           setListCityes([data.list[0], ...listCityes]);
         }
@@ -67,13 +69,13 @@ function App() {
 
   const getLocation = () => {
     navigator.geolocation.getCurrentPosition(
-      function (position) {
+      (position) => {
         getInfoWeatherCoordinates([
           position.coords.latitude,
           position.coords.longitude,
         ]);
       },
-      function (error) {
+      (error) => {
         console.log(error);
       }
     );

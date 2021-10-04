@@ -1,15 +1,16 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
+import { TCity } from "../../types/city";
 
 type TProps = {
-  list: any[];
+  list: TCity[];
 };
 
 export const DetailedPage = ({ list }: TProps) => {
   const history = useHistory();
   const { name } = useParams<{ name?: string }>();
-  const city = [...list].filter((item: any) => item.name === name);
+  const city = [...list].filter((item: TCity) => item.name === name);
 
   useEffect(() => {
     if (list.length === 0) {
