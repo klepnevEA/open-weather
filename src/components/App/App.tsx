@@ -8,7 +8,7 @@ import InputSearch from "../InputSearch";
 import styles from "./index.module.css";
 
 function App() {
-  const key = "042b216cc05c55dff4056e4691f50c15";
+  const key = "ea6da953729f4d3bf6658f2f0b28e742";
   const [listCityes, setListCityes] = useState<any[]>([]);
   function getInfoWeather(name: string) {
     fetch(
@@ -28,18 +28,58 @@ function App() {
         ) {
           setListCityes([data, ...listCityes]);
         }
-        console.log(listCityes);
       })
       .catch((err) => {
         console.warn("Такого города нет");
       });
   }
 
+  function getInfoWeatherCoordinates(coordinates: number[]) {
+    fetch(
+      `http://api.openweathermap.org/data/2.5/find?lat=${coordinates[0]}&lon=${
+        coordinates[1]
+      }&cnt=${50}&appid=${key}`
+    )
+      .then((response) => {
+        if (response.status < 400) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        if (data.cod === "404") {
+          setListCityes([...listCityes]);
+        } else if (
+          [...listCityes].filter((item: any) => item.name === data.list[0].name)
+            .length === 0
+        ) {
+          setListCityes([data.list[0], ...listCityes]);
+        }
+      })
+      .catch((err) => {
+        console.warn("Такого города нет!");
+      });
+  }
+
   const search = (value: string) => {
-    console.log(value);
     getInfoWeather(value);
     return value;
   };
+
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        getInfoWeatherCoordinates([
+          position.coords.latitude,
+          position.coords.longitude,
+        ]);
+      },
+      function (error) {
+        console.log(error);
+      }
+    );
+  };
+
+  getLocation();
 
   return (
     <div className={styles["wrapper"]}>

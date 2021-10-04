@@ -1,7 +1,6 @@
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
-import styles from "./index.module.css";
 
 type TProps = {
   list: any[];

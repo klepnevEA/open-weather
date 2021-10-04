@@ -12,14 +12,17 @@ export const CardCity = ({ city }: TProps) => {
       <CardActionArea>
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Город: {city.name}
+            Город: {city?.name}
           </Typography>
-          <Typography>Температура: {city.main.temp} &deg;C</Typography>
-          <Typography>Влажгность: {city.main.humidity} %</Typography>
-          <Typography>Видимость: {city.visibility} м</Typography>
+          <Typography>Температура: {city?.main.temp} &deg;C</Typography>
+          <Typography>Влажгность: {city?.main.humidity} %</Typography>
+          {city?.visibility && (
+            <Typography>Видимость: {city?.visibility} м</Typography>
+          )}
+
           <Link
             to={{
-              pathname: `/datailed/${city.name}`,
+              pathname: `/datailed/${city?.name}`,
             }}
           >
             Подробнее
