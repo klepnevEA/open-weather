@@ -2,21 +2,21 @@ import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { TCity } from "../../types/city";
+import DataCity from "../../store/data-city";
+import { observer } from "mobx-react-lite";
 
-type TProps = {
-  list: TCity[];
-};
-
-export const DetailedPage = ({ list }: TProps) => {
+export const DetailedPage = observer(() => {
   const history = useHistory();
   const { name } = useParams<{ name?: string }>();
-  const city = [...list].filter((item: TCity) => item.name === name);
+  const city = [...DataCity.listCityes].filter(
+    (item: TCity) => item.name === name
+  );
 
   useEffect(() => {
-    if (list.length === 0) {
+    if (DataCity.listCityes.length === 0) {
       history.replace({ pathname: "/" });
     }
-  }, [history, list]);
+  }, [history]);
 
   return (
     <Card>
@@ -43,4 +43,4 @@ export const DetailedPage = ({ list }: TProps) => {
       </CardActionArea>
     </Card>
   );
-};
+});
