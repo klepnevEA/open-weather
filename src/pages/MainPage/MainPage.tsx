@@ -2,17 +2,15 @@ import React from "react";
 import CardCity from "../../components/CardCity";
 import { TCity } from "../../types/city";
 import styles from "./index.module.css";
+import DataCity from "../../store/data-city";
+import { observer } from "mobx-react-lite";
 
-type TProps = {
-  list: TCity[];
-};
-
-export const MainPage = ({ list }: TProps) => {
+export const MainPage = observer(() => {
   return (
     <>
-      {list.length ? (
+      {DataCity.listCityes.length ? (
         <ul className={styles["list-city"]}>
-          {list.map((elem: TCity, index: number) => {
+          {DataCity.listCityes.map((elem: TCity, index: number) => {
             return (
               <li key={index}>
                 <CardCity city={elem} />
@@ -25,4 +23,4 @@ export const MainPage = ({ list }: TProps) => {
       )}
     </>
   );
-};
+});
